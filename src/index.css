@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --color-background: #09090b;
+  --color-foreground: #fafafa;
+  --color-card: rgba(255, 255, 255, 0.03);
+  --color-card-foreground: #fafafa;
+  --color-muted: #27272a;
+  --color-muted-foreground: #a1a1aa;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-accent: #ffffff;
+  --color-accent-foreground: #09090b;
+  --color-primary: #fafafa;
+  --color-primary-foreground: #09090b;
+  --color-secondary: rgba(255, 255, 255, 0.06);
+  --color-secondary-foreground: #fafafa;
+  --color-ring: rgba(255, 255, 255, 0.2);
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(255, 255, 255, 0.05), transparent),
+      radial-gradient(ellipse 60% 40% at 100% 0%, rgba(255, 255, 255, 0.03), transparent);
+    min-height: 100vh;
+  }
+
+  html.light {
+    --color-background: #fafafa;
+    --color-foreground: #09090b;
+    --color-card: rgba(0, 0, 0, 0.02);
+    --color-card-foreground: #09090b;
+    --color-muted: #f4f4f5;
+    --color-muted-foreground: #71717a;
+    --color-border: rgba(0, 0, 0, 0.08);
+    --color-primary: #09090b;
+    --color-primary-foreground: #fafafa;
+    --color-secondary: rgba(0, 0, 0, 0.04);
+    --color-secondary-foreground: #09090b;
+    --color-ring: rgba(0, 0, 0, 0.2);
+  }
+
+  html.light body {
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 0, 0, 0.03), transparent),
+      radial-gradient(ellipse 60% 40% at 100% 0%, rgba(0, 0, 0, 0.02), transparent);
+  }
+
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin-inline: auto;
+  }
+
+  ::selection {
+    @apply bg-white/20 text-white;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-white/[0.03] backdrop-blur-xl border border-white/[0.08];
+  }
+
+  .glass-strong {
+    @apply bg-white/[0.06] backdrop-blur-2xl border border-white/[0.1];
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-linear-to-b from-white to-white/60;
+  }
+
+  .grid-pattern {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  .glow {
+    box-shadow: 0 0 80px rgba(255, 255, 255, 0.06);
+  }
+}
