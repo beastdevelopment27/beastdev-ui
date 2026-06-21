@@ -1,14 +1,13 @@
 import { Link } from 'react-router-dom'
 import {
   Globe, Cloud, Smartphone, Palette, Server, Plug, Wrench,
-  Check, ArrowRight, Star, Award, Lightbulb, Shield, Eye,
+  Check, ArrowRight, Award, Lightbulb, Shield, Eye,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { motion } from 'framer-motion'
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import type { Project, Service } from '@/types'
+import type { Service } from '@/types'
 import { cn } from '@/lib/utils'
 
 const iconMap: Record<string, LucideIcon> = {
@@ -46,61 +45,6 @@ export function ServiceCard({ service }: { service: Service }) {
           </Link>
         </Button>
       </CardContent>
-    </Card>
-  )
-}
-
-export function ProjectCard({ project }: { project: Project }) {
-  return (
-    <Card className="group overflow-hidden hover:bg-white/[0.05] transition-all duration-300 hover:border-white/15">
-      <div className="relative aspect-video overflow-hidden">
-        <img
-          src={project.thumbnail}
-          alt={project.name}
-          className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
-          loading="lazy"
-        />
-        <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-      </div>
-      <CardContent className="p-6">
-        <Badge variant="outline" className="mb-3">{project.category}</Badge>
-        <h3 className="text-xl font-semibold mb-2">{project.name}</h3>
-        <p className="text-muted-foreground text-sm leading-relaxed mb-4">{project.shortDescription}</p>
-        <div className="flex flex-wrap gap-2 mb-4">
-          {project.technologies.slice(0, 3).map((tech) => (
-            <Badge key={tech} variant="secondary" className="text-xs">{tech}</Badge>
-          ))}
-        </div>
-        <Button asChild variant="outline" size="sm">
-          <Link to={`/portfolio/${project.id}`}>
-            View Details <ArrowRight className="size-4" />
-          </Link>
-        </Button>
-      </CardContent>
-    </Card>
-  )
-}
-
-export function TestimonialCard({ testimonial }: { testimonial: import('@/types').Testimonial }) {
-  return (
-    <Card className="p-6">
-      <div className="flex gap-1 mb-4">
-        {Array.from({ length: testimonial.rating }).map((_, i) => (
-          <Star key={i} className="size-4 fill-white text-white" />
-        ))}
-      </div>
-      <p className="text-muted-foreground leading-relaxed mb-6">&ldquo;{testimonial.content}&rdquo;</p>
-      <div className="flex items-center gap-3">
-        <img
-          src={testimonial.avatar}
-          alt={testimonial.name}
-          className="size-10 rounded-full object-cover"
-        />
-        <div>
-          <p className="font-medium text-sm">{testimonial.name}</p>
-          <p className="text-xs text-muted-foreground">{testimonial.role}, {testimonial.company}</p>
-        </div>
-      </div>
     </Card>
   )
 }

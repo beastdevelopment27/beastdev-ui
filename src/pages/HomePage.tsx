@@ -5,16 +5,14 @@ import { SEO } from '@/components/common/SEO'
 import { AnimatedSection, SectionHeading } from '@/components/common/SectionHeading'
 import { CTABanner } from '@/components/common/CTABanner'
 import { FAQSection } from '@/components/common/FAQSection'
-import { ServiceCard, ProjectCard, TestimonialCard, ProcessSteps } from '@/components/common/Cards'
+import { ServiceCard, ProcessSteps } from '@/components/common/Cards'
 import { Button } from '@/components/ui/button'
 import { services, processSteps } from '@/data/services'
-import { projects } from '@/data/projects'
-import { testimonials, trustedCompanies } from '@/data/testimonials'
 import { generalFaqs } from '@/data/faqs'
 
 const whyChooseUs = [
-  'Expert team with 8+ years of experience',
-  '150+ successful projects delivered',
+  'Expert team with 2+ years of experience',
+  '2 successful projects delivered',
   'Agile methodology with weekly demos',
   'Transparent pricing with no hidden fees',
   'Post-launch support and maintenance',
@@ -73,32 +71,9 @@ export default function HomePage() {
                 </Link>
               </Button>
               <Button asChild variant="outline" size="lg">
-                <Link to="/portfolio">View Portfolio</Link>
+                <Link to="/services">View Services</Link>
               </Button>
             </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Trusted By */}
-      <section className="py-16 border-y border-white/8">
-        <div className="container mx-auto px-4 md:px-6">
-          <p className="text-center text-sm text-muted-foreground mb-8 uppercase tracking-wider">
-            Trusted by innovative companies
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
-            {trustedCompanies.map((company, i) => (
-              <motion.span
-                key={company}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.05 }}
-                className="text-lg font-semibold text-muted-foreground/60 hover:text-muted-foreground transition-colors"
-              >
-                {company}
-              </motion.span>
-            ))}
           </div>
         </div>
       </section>
@@ -154,31 +129,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Featured Projects */}
-      <section className="py-20 md:py-28">
-        <div className="container mx-auto px-4 md:px-6">
-          <AnimatedSection className="mb-16">
-            <SectionHeading
-              label="Portfolio"
-              title="Featured Projects"
-              description="Explore our latest work and see how we help businesses transform their digital presence."
-            />
-          </AnimatedSection>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.slice(0, 3).map((project, i) => (
-              <AnimatedSection key={project.id} delay={i * 0.1}>
-                <ProjectCard project={project} />
-              </AnimatedSection>
-            ))}
-          </div>
-          <AnimatedSection className="text-center mt-12" delay={0.3}>
-            <Button asChild variant="outline">
-              <Link to="/portfolio">View All Projects <ArrowRight className="size-4" /></Link>
-            </Button>
-          </AnimatedSection>
-        </div>
-      </section>
-
       {/* Development Process */}
       <section className="py-20 md:py-28 border-t border-white/8">
         <div className="container mx-auto px-4 md:px-6">
@@ -190,26 +140,6 @@ export default function HomePage() {
             />
           </AnimatedSection>
           <ProcessSteps steps={processSteps} />
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="py-20 md:py-28">
-        <div className="container mx-auto px-4 md:px-6">
-          <AnimatedSection className="mb-16">
-            <SectionHeading
-              label="Testimonials"
-              title="What Our Clients Say"
-              description="Don't just take our word for it — hear from the businesses we've helped grow."
-            />
-          </AnimatedSection>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {testimonials.slice(0, 3).map((t, i) => (
-              <AnimatedSection key={t.id} delay={i * 0.1}>
-                <TestimonialCard testimonial={t} />
-              </AnimatedSection>
-            ))}
-          </div>
         </div>
       </section>
 

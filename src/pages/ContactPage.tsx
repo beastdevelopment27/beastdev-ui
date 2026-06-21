@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react'
-import { Mail, MapPin, Phone, Send, CheckCircle } from 'lucide-react'
+import { Send, CheckCircle } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { SEO } from '@/components/common/SEO'
 import { PageHero } from '@/components/common/SectionHeading'
@@ -17,9 +17,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Card, CardContent } from '@/components/ui/card'
+import { Card } from '@/components/ui/card'
 import { LoadingSpinner } from '@/components/common/LoadingSpinner'
 import { contactFaqs } from '@/data/faqs'
+import { sendContactFormToDiscord } from '@/lib/discordWebhook'
 
 const projectTypes = [
   'Website Development',
@@ -41,13 +42,42 @@ const budgetRanges = [
 export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
+  const [projectType, setProjectType] = useState('')
+  const [budget, setBudget] = useState('')
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    setSubmitError(null)
+
+    if (!projectType) {
+      setSubmitError('Please select a project type.')
+      return
+    }
+
+    const formData = new FormData(e.currentTarget)
+    const name = formData.get('name')?.toString().trim() ?? ''
+    const email = formData.get('email')?.toString().trim() ?? ''
+    const company = formData.get('company')?.toString().trim()
+    const message = formData.get('message')?.toString().trim() ?? ''
+
     setIsSubmitting(true)
-    await new Promise((resolve) => setTimeout(resolve, 1500))
-    setIsSubmitting(false)
-    setIsSubmitted(true)
+
+    try {
+      await sendContactFormToDiscord({
+        name,
+        email,
+        company: company || undefined,
+        projectType,
+        budget: budget || undefined,
+        message,
+      })
+      setIsSubmitted(true)
+    } catch {
+      setSubmitError('Something went wrong. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -64,9 +94,8 @@ export default function ContactPage() {
 
       <section className="pb-20 md:pb-28">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="grid lg:grid-cols-5 gap-12 max-w-6xl mx-auto">
-            {/* Form */}
-            <AnimatedSection className="lg:col-span-3">
+          <div className="max-w-2xl mx-auto">
+            <AnimatedSection>
               <Card className="p-8">
                 {isSubmitted ? (
                   <motion.div
@@ -99,7 +128,7 @@ export default function ContactPage() {
                     <div className="grid sm:grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="projectType">Project Type *</Label>
-                        <Select name="projectType" required>
+                        <Select value={projectType} onValueChange={setProjectType} required>
                           <SelectTrigger id="projectType">
                             <SelectValue placeholder="Select type" />
                           </SelectTrigger>
@@ -112,7 +141,7 @@ export default function ContactPage() {
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="budget">Budget</Label>
-                        <Select name="budget">
+                        <Select value={budget} onValueChange={setBudget}>
                           <SelectTrigger id="budget">
                             <SelectValue placeholder="Select budget" />
                           </SelectTrigger>
@@ -134,6 +163,9 @@ export default function ContactPage() {
                         rows={5}
                       />
                     </div>
+                    {submitError && (
+                      <p className="text-sm text-red-400">{submitError}</p>
+                    )}
                     <Button type="submit" size="lg" className="w-full sm:w-auto" disabled={isSubmitting}>
                       {isSubmitting ? (
                         <>
@@ -151,63 +183,14 @@ export default function ContactPage() {
               </Card>
             </AnimatedSection>
 
-            {/* Contact Info */}
-            <AnimatedSection className="lg:col-span-2" delay={0.1}>
-              <div className="space-y-6">
-                <Card className="p-6">
-                  <CardContent className="p-0 space-y-6">
-                    <div className="flex items-start gap-4">
-                      <div className="flex size-10 items-center justify-center rounded-lg bg-white/10 shrink-0">
-                        <Mail className="size-5" />
-                      </div>
-                      <div>
-                        <h4 className="font-medium mb-1">Email</h4>
-                        <a href="mailto:hello@beastdev.com" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                          hello@beastdev.com
-                        </a>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-4">
-                      <div className="flex size-10 items-center justify-center rounded-lg bg-white/10 shrink-0">
-                        <Phone className="size-5" />
-                      </div>
-                      <div>
-                        <h4 className="font-medium mb-1">Phone</h4>
-                        <a href="tel:+15551234567" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                          +1 (555) 123-4567
-                        </a>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-4">
-                      <div className="flex size-10 items-center justify-center rounded-lg bg-white/10 shrink-0">
-                        <MapPin className="size-5" />
-                      </div>
-                      <div>
-                        <h4 className="font-medium mb-1">Location</h4>
-                        <p className="text-sm text-muted-foreground">
-                          San Francisco, CA<br />
-                          United States
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="p-6">
-                  <h4 className="font-semibold mb-2">Office Hours</h4>
-                  <div className="text-sm text-muted-foreground space-y-1">
-                    <p>Monday - Friday: 9:00 AM - 6:00 PM PST</p>
-                    <p>Saturday - Sunday: Closed</p>
-                  </div>
-                </Card>
-
-                <Card className="p-6">
-                  <h4 className="font-semibold mb-2">Response Time</h4>
-                  <p className="text-sm text-muted-foreground">
-                    We respond to all inquiries within 24 hours on business days. For urgent projects, mention your timeline in the message.
-                  </p>
-                </Card>
-              </div>
+            <AnimatedSection className="mt-6" delay={0.1}>
+              <Card className="p-6">
+                <h4 className="font-semibold mb-2">Office Hours</h4>
+                <div className="text-sm text-muted-foreground space-y-1">
+                  <p>Monday - Friday: 7:00 AM - 11:00 PM IST</p>
+                  <p>Saturday - Sunday: Closed</p>
+                </div>
+              </Card>
             </AnimatedSection>
           </div>
         </div>

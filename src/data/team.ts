@@ -1,45 +1,15 @@
 import type { TeamMember } from '@/types'
 
 export const teamMembers: TeamMember[] = [
-  {
-    id: 'tm1',
-    name: 'Alex Rivera',
-    role: 'Founder & CEO',
-    bio: 'Full-stack engineer with 12+ years building products for startups and Fortune 500 companies. Passionate about turning complex ideas into elegant software.',
-    avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop',
-    social: { linkedin: '#', twitter: '#', github: '#' },
-  },
-  {
-    id: 'tm2',
-    name: 'Maya Patel',
-    role: 'Lead Designer',
-    bio: 'Award-winning UI/UX designer specializing in design systems and user research. Previously led design at two Y Combinator startups.',
-    avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop',
-    social: { linkedin: '#', twitter: '#' },
-  },
-  {
-    id: 'tm3',
-    name: 'Jordan Kim',
-    role: 'Senior Developer',
-    bio: 'TypeScript enthusiast and open-source contributor. Expert in React, Node.js, and cloud architecture with a focus on performance and scalability.',
-    avatar: 'https://images.unsplash.com/photo-1519081908943-4d5d5c2a1f2?w=200&h=200&fit=crop',
-    social: { linkedin: '#', github: '#' },
-  },
-  {
-    id: 'tm4',
-    name: 'Sophie Laurent',
-    role: 'Project Manager',
-    bio: 'Agile-certified PM with a background in software engineering. Ensures every project stays on track, on budget, and exceeds client expectations.',
-    avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop',
-    social: { linkedin: '#', twitter: '#' },
-  },
+  { id: 'tm1', name: 'Roshanvijay' },
+  { id: 'tm2', name: 'Sivalalitha' },
 ]
 
 export const companyStats = [
-  { label: 'Projects Delivered', value: '150+' },
-  { label: 'Happy Clients', value: '80+' },
-  { label: 'Years Experience', value: '8+' },
-  { label: 'Team Members', value: '12' },
+  { label: 'Projects Delivered', value: '2' },
+  { label: 'Happy Clients', value: '1' },
+  { label: 'Years Experience', value: '2' },
+  { label: 'Team Members', value: '2' },
 ]
 
 export const companyValues = [

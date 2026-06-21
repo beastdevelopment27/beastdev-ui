@@ -1,10 +1,9 @@
-import { LinkedinIcon, TwitterIcon, GithubIcon } from '@/components/common/SocialIcons'
 import { SEO } from '@/components/common/SEO'
 import { PageHero } from '@/components/common/SectionHeading'
 import { AnimatedSection, SectionHeading } from '@/components/common/SectionHeading'
 import { CTABanner } from '@/components/common/CTABanner'
 import { ServiceIcon } from '@/components/common/Cards'
-import { Card, CardContent } from '@/components/ui/card'
+import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { teamMembers, companyStats, companyValues } from '@/data/team'
 import { technologies } from '@/data/services'
@@ -53,10 +52,10 @@ export default function AboutPage() {
                   Beast Dev was founded in 2018 with a simple belief: great software should be accessible to every business, not just tech giants. What started as a two-person team has grown into a full-service development agency serving clients worldwide.
                 </p>
                 <p>
-                  We've delivered over 150 projects across industries — from fintech and healthcare to e-commerce and SaaS. Our approach combines technical excellence with deep business understanding, ensuring every product we build drives measurable results.
+                  We've delivered projects across industries — from fintech and healthcare to e-commerce and SaaS. Our approach combines technical excellence with deep business understanding, ensuring every product we build drives measurable results.
                 </p>
                 <p>
-                  Today, we're a team of 12 specialists who share a commitment to quality, innovation, and client success. We don't just write code — we partner with you to build products that matter.
+                  Today, we're a team of 2 who share a commitment to quality, innovation, and client success. We don't just write code — we partner with you to build products that matter.
                 </p>
               </div>
             </AnimatedSection>
@@ -150,42 +149,13 @@ export default function AboutPage() {
             <SectionHeading
               label="Team"
               title="Meet the Team"
-              description="The talented people behind every Beast Dev project."
             />
           </AnimatedSection>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="flex flex-wrap items-center justify-center gap-4 max-w-2xl mx-auto">
             {teamMembers.map((member, i) => (
               <AnimatedSection key={member.id} delay={i * 0.1}>
-                <Card className="overflow-hidden group hover:border-white/15 transition-all">
-                  <div className="aspect-square overflow-hidden">
-                    <img
-                      src={member.avatar}
-                      alt={member.name}
-                      className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  </div>
-                  <CardContent className="p-6">
-                    <h3 className="font-semibold text-lg">{member.name}</h3>
-                    <p className="text-sm text-muted-foreground mb-3">{member.role}</p>
-                    <p className="text-sm text-muted-foreground leading-relaxed mb-4">{member.bio}</p>
-                    <div className="flex gap-2">
-                      {member.social.linkedin && (
-                        <a href={member.social.linkedin} aria-label="LinkedIn" className="text-muted-foreground hover:text-foreground transition-colors">
-                          <LinkedinIcon className="size-4" />
-                        </a>
-                      )}
-                      {member.social.twitter && (
-                        <a href={member.social.twitter} aria-label="Twitter" className="text-muted-foreground hover:text-foreground transition-colors">
-                          <TwitterIcon className="size-4" />
-                        </a>
-                      )}
-                      {member.social.github && (
-                        <a href={member.social.github} aria-label="GitHub" className="text-muted-foreground hover:text-foreground transition-colors">
-                          <GithubIcon className="size-4" />
-                        </a>
-                      )}
-                    </div>
-                  </CardContent>
+                <Card className="px-8 py-6 hover:border-white/15 transition-all">
+                  <p className="font-semibold text-lg text-center">{member.name}</p>
                 </Card>
               </AnimatedSection>
             ))}
@@ -198,8 +168,8 @@ export default function AboutPage() {
         description="We're always looking for exciting projects and great partnerships. Let's talk about yours."
         primaryLabel="Get in Touch"
         primaryHref="/contact"
-        secondaryLabel="View Our Work"
-        secondaryHref="/portfolio"
+        secondaryLabel="View Services"
+        secondaryHref="/services"
       />
     </>
   )
